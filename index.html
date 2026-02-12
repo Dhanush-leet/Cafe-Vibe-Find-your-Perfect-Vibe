@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CafeVibe | Find Your Perfect Vibe</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/homepage.css" />
+</head>
+
+<body class="page-transition">
+
+  <div id="cursor-blobs">
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
+  </div>
+
+  <header class="landing-header">
+    <div class="container container-header">
+      <div class="logo-main">
+        <i class="fas fa-mug-hot"></i>
+        <span>CafeVibe</span>
+      </div>
+      <nav>
+        <a href="app.html" class="btn-primary">Launch App</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION (Split) -->
+    <section class="hero-section">
+      <div class="hero-glow"></div>
+      <div class="container hero-grid">
+        <!-- Left Content -->
+        <div class="hero-content">
+          <h1>Curated Cafes <br>for Your <span class="highlight">State of Mind.</span></h1>
+          <p class="hero-subtext">AI-powered discovery for modern workspaces and social escapes.</p>
+
+          <div class="cta-group">
+            <a href="#city-selector" class="btn-primary">Explore Cities <i class="fas fa-arrow-right"></i></a>
+            <a href="#" class="btn-secondary" onclick="enterWithFilter('surprise')">Surprise Me</a>
+          </div>
+
+          <div class="credibility-line">
+            <i class="fas fa-check-circle" style="color:#D6B47E; margin-right:5px;"></i> 3 Cities • 1,200+ Cafes •
+            Live Insights
+          </div>
+        </div>
+
+        <!-- Right Content (Floating Visual) -->
+        <div class="hero-visual">
+          <div class="glass-card-preview">
+            <div class="preview-badge"><i class="fas fa-fire"></i> Trending #1</div>
+            <div class="preview-img">
+              <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=600"
+                alt="Cafe Preview">
+            </div>
+            <div class="preview-info">
+              <span class="preview-rating"><i class="fas fa-star"></i> 4.9 Superb</span>
+              <h3>Third Wave Coffee</h3>
+              <div class="preview-stats">
+                <span class="p-stat"><i class="fas fa-wifi"></i> Fast</span>
+                <span class="p-stat"><i class="fas fa-volume-mute"></i> Quiet</span>
+                <span class="p-stat"><i class="fas fa-coins"></i> $$</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Platform Pulse Stats (Thin Row) -->
+    <section class="pulse-row-section">
+      <div class="container">
+        <div class="pulse-grid-thin">
+          <div class="pulse-item"><strong>12k+</strong> <span>Cafes</span></div>
+          <div class="pulse-item"><strong>3</strong> <span>Cities</span></div>
+          <div class="pulse-item"><strong>98%</strong> <span>Accuracy</span></div>
+          <div class="pulse-item"><strong>Live</strong> <span>Vibe-Sync</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CITY SELECTOR (Premium Grid) -->
+    <section id="city-selector" class="city-section">
+      <div class="container">
+        <div class="section-title">
+          <h2 class="text-glow">Explore India’s Cafe Capitals</h2>
+          <p>Select a city to enter the live intelligence dashboard.</p>
+        </div>
+
+        <div class="city-grid">
+          <!-- Bangalore -->
+          <div class="city-card-premium" onclick="selectCity('Bangalore', [12.9716, 77.5946])">
+            <img src="https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=800&q=80"
+              class="city-bg-img" alt="Bangalore">
+            <div class="city-overlay">
+              <h3>Bangalore</h3>
+              <p>127 spots trending today <i class="fas fa-arrow-right" style="margin-left: 5px;"></i></p>
+            </div>
+          </div>
+
+          <!-- Mumbai -->
+          <div class="city-card-premium" onclick="selectCity('Mumbai', [19.0760, 72.8777])">
+            <img src="https://images.unsplash.com/photo-1567157577867-05ccb1388e66?auto=format&fit=crop&w=800&q=80"
+              class="city-bg-img" alt="Mumbai">
+            <div class="city-overlay">
+              <h3>Mumbai</h3>
+              <p>94 spots trending today <i class="fas fa-arrow-right" style="margin-left: 5px;"></i></p>
+            </div>
+          </div>
+
+          <!-- Chennai -->
+          <div class="city-card-premium" onclick="selectCity('Chennai', [13.0827, 80.2707])">
+            <img src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=800&q=80"
+              class="city-bg-img" alt="Chennai">
+            <div class="city-overlay">
+              <h3>Chennai</h3>
+              <p>62 spots trending today <i class="fas fa-arrow-right" style="margin-left: 5px;"></i></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES (Intelligence Layer) -->
+    <section class="features-section">
+      <div class="container">
+        <div class="feature-grid">
+          <div class="feature-card">
+            <i class="fas fa-compass feature-icon"></i>
+            <h3>Discover</h3>
+            <p>Real-time neighborhood analysis to find exactly where you fit in.</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-brain feature-icon"></i>
+            <h3>Understand</h3>
+            <p>Deep DNA metrics on noise, energy, and workability for every spot.</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-location-arrow feature-icon"></i>
+            <h3>Navigate</h3>
+            <p>Instant routing and one-click directions for your next adventure.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <div class="footer-logo">
+        <i class="fas fa-mug-hot"></i> CafeVibe
+      </div>
+      <p>&copy; 2026 CafeVibe Intelligence. Proudly crafted for modern nomads.</p>
+      <div class="footer-social">
+        <i class="fab fa-instagram"></i>
+        <i class="fab fa-twitter"></i>
+        <i class="fab fa-linkedin"></i>
+      </div>
+    </div>
+  </footer>
+
+  <canvas id="hero-canvas"></canvas>
+
+  <script>
+    // --- 3D QUANTUM FIELD BACKGROUND ---
+    const canvas = document.getElementById('hero-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.z = Math.random() * 2;
+        this.size = Math.random() * 2;
+        this.speed = Math.random() * 0.5 + 0.1;
+      }
+      update() {
+        this.y -= this.speed;
+        if (this.y < 0) {
+          this.y = height;
+          this.x = Math.random() * width;
+        }
+      }
+      draw() {
+        ctx.fillStyle = `rgba(214, 180, 126, ${this.z * 0.3})`; // Primary Gold Color
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size * this.z, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < 150; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    initParticles();
+    animate();
+
+    // --- 3D TILT EFFECT FOR PREMIUM CARDS ---
+    const cards = document.querySelectorAll('.city-card-premium, .glass-card-preview');
+
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -10;
+        const rotateY = ((x - centerX) / centerX) * 10;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) translateY(0)`;
+      });
+    });
+
+    // Reveal on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+  <script type="module" src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Intelligence | CafeVibe</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/city.css">
+
+    <!-- Chart.js for Radar Visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="page-transition">
+
+    <!-- Hero Section -->
+    <header class="city-hero">
+        <div class="hero-bg" id="city-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <span class="premium-badge"><i class="fas fa-satellite-dish"></i> LIVE INTELLIGENCE</span>
+            <h1 id="city-name" class="text-glow">Bangalore</h1>
+            <div class="hero-stats">
+                <div class="stat-pill"><i class="fas fa-sun"></i> <span id="time-mode">Evening Mode</span></div>
+                <div class="stat-pill"><i class="fas fa-fire"></i> <span id="trending-count">127</span> Spots Trending
+                </div>
+                <div class="stat-pill"><i class="fas fa-database"></i> <span id="indexed-count">842</span> Indexed</div>
+            </div>
+            <button class="btn-primary pulse-btn" onclick="launchMap()">
+                <i class="fas fa-map-marked-alt"></i> Enter Live Map
+            </button>
+        </div>
+    </header>
+
+    <!-- Live Metrics Grid -->
+    <section class="metrics-section">
+        <div class="container">
+            <div class="metrics-grid">
+                <div class="metric-card calm">
+                    <div class="icon"><i class="fas fa-leaf"></i></div>
+                    <div class="detail">
+                        <h3>34</h3>
+                        <p>Calm Zones</p>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="fill" style="width: 45%"></div>
+                    </div>
+                </div>
+                <div class="metric-card active">
+                    <div class="icon"><i class="fas fa-bolt"></i></div>
+                    <div class="detail">
+                        <h3>21</h3>
+                        <p>Active Zones</p>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="fill" style="width: 60%"></div>
+                    </div>
+                </div>
+                <div class="metric-card crowded">
+                    <div class="icon"><i class="fas fa-users"></i></div>
+                    <div class="detail">
+                        <h3>12</h3>
+                        <p>Crowded</p>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="fill" style="width: 85%"></div>
+                    </div>
+                </div>
+                <div class="metric-card tech">
+                    <div class="icon"><i class="fas fa-wifi"></i></div>
+                    <div class="detail">
+                        <h3>68%</h3>
+                        <p>WiFi Friendly</p>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="fill" style="width: 68%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Dashboard Split -->
+    <section class="dashboard-section">
+        <div class="container dashboard-grid">
+
+            <!-- Left: DNA & Insights -->
+            <div class="col-left">
+                <!-- Modes -->
+                <div class="glass-panel mode-panel">
+                    <h3>Choose Your Mode</h3>
+                    <div class="mode-grid">
+                        <button class="mode-btn" onclick="filterAndLaunch('work')">
+                            <i class="fas fa-laptop-code"></i> Work
+                        </button>
+                        <button class="mode-btn" onclick="filterAndLaunch('date')">
+                            <i class="fas fa-heart"></i> Date
+                        </button>
+                        <button class="mode-btn" onclick="filterAndLaunch('social')">
+                            <i class="fas fa-users"></i> Social
+                        </button>
+                        <button class="mode-btn" onclick="filterAndLaunch('night')">
+                            <i class="fas fa-moon"></i> Night
+                        </button>
+                        <button class="mode-btn" onclick="filterAndLaunch('surprise')">
+                            <i class="fas fa-dice"></i> Surprise
+                        </button>
+                    </div>
+                </div>
+
+                <!-- DNA Chart -->
+                <div class="glass-panel dna-panel">
+                    <h3>City Vibe DNA</h3>
+                    <canvas id="dnaChart"></canvas>
+                    <p id="dna-summary" class="dna-summary">
+                        Bangalore: High Work Energy, Moderate Social Buzz.
+                    </p>
+                </div>
+
+                <!-- Why This City -->
+                <div class="glass-panel insight-panel">
+                    <h3><i class="fas fa-lightbulb"></i> Insight</h3>
+                    <p id="city-insight">
+                        Bangalore is ranked #1 for remote workers due to high WiFi availability and cafe density in
+                        Indiranagar and Koramangala.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right: Trending & Map Preview -->
+            <div class="col-right">
+
+                <!-- Trending Slider -->
+                <div class="trending-preview">
+                    <div class="section-header-small">
+                        <h3>Trending Now</h3>
+                        <a href="#" onclick="launchMap()">View All <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="trending-scroll" id="trending-list">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+
+                <!-- Mini Map Preview -->
+                <div class="mini-map-container glass-panel">
+                    <div class="mini-map-blur" id="mini-map-img"></div>
+                    <div class="map-overlay-content">
+                        <i class="fas fa-map-location-dot"></i>
+                        <h3>Explore 842 Live Spots</h3>
+                        <button class="btn-primary" onclick="launchMap()">Launch Full Experience</button>
+                    </div>
+                </div>
+
+                <!-- Challenges -->
+                <div class="challenges-panel glass-panel">
+                    <h3><i class="fas fa-trophy"></i> Weekly Challenges</h3>
+                    <ul class="challenge-list" id="challenge-list">
+                        <!-- Injected via JS -->
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script src="js/data.js"></script>
+    <script src="js/city.js"></script>
+</body>
+
+</html>

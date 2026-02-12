@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CafeVibe Explore | Interactive Discovery</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/map.css" />
+</head>
+
+<body class="page-transition dark-theme">
+
+    <!-- Cinematic Welcome Overlay -->
+    <div id="welcome-overlay" class="glass-panel">
+        <div class="overlay-content">
+            <span class="premium-badge">CAFEVIBE 2.1</span>
+            <div class="city-pulse-grid">
+                <div class="pulse-stat"><span>Calm</span><strong>43</strong></div>
+                <div class="pulse-stat"><span>Active</span><strong>22</strong></div>
+                <div class="pulse-stat"><span>Crowded</span><strong>8</strong></div>
+            </div>
+            <h1>Welcome to <span class="text-glow" id="overlay-city">Bangalore</span></h1>
+            <p id="overlay-status">🌤 Evening Mode Active | ⚡ 142 spots detected</p>
+
+            <div class="quick-entry-grid">
+                <div class="entry-card" onclick="enterWithFilter('work')">
+                    <i class="fas fa-laptop-code"></i>
+                    <span>Work Now</span>
+                </div>
+                <div class="entry-card" onclick="enterWithFilter('surprise')">
+                    <i class="fas fa-magic"></i>
+                    <span>Mystery Drop</span>
+                </div>
+                <div class="entry-card" onclick="enterWithFilter('night')">
+                    <i class="fas fa-moon"></i>
+                    <span>Night Spots</span>
+                </div>
+            </div>
+
+            <button class="btn-primary" onclick="startBootSequence()">Initialize Radar</button>
+
+            <div id="boot-sequence" class="hidden">
+                <div class="boot-log" id="boot-log"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Smart Loading Experience -->
+    <div id="loader" class="hidden">
+        <div class="brewing-animation">
+            <i class="fas fa-mug-hot"></i>
+        </div>
+        <p id="loading-quote">Brewing your perfect spot...</p>
+        <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+        </div>
+    </div>
+
+    <div id="app-container" class="hidden-ui">
+        <header class="glass-panel main-header">
+            <div class="logo">
+                <i class="fas fa-mug-hot"></i>
+                <span>CafeVibe</span>
+            </div>
+
+            <div class="mood-selector">
+                <button class="mood-btn active" data-mood="all" onclick="setMood('all')">
+                    <i class="fas fa-border-all"></i> All
+                </button>
+                <button class="mood-btn" data-mood="work" onclick="setMood('work')" title="Work Focus">
+                    <i class="fas fa-laptop-code"></i> Work
+                </button>
+                <button class="mood-btn" data-mood="date" onclick="setMood('date')" title="Aesthetic/Date">
+                    <i class="fas fa-heart"></i> Date
+                </button>
+                <button class="mood-btn" data-mood="social" onclick="setMood('social')" title="Social">
+                    <i class="fas fa-users"></i> Social
+                </button>
+            </div>
+
+            <div class="search-container-premium">
+                <div class="search-wrapper-v2">
+                    <i class="fas fa-search search-icon"></i>
+                    <input id="place-input" type="text" placeholder="Search city or specific cafe..."
+                        autocomplete="off" />
+
+                    <div class="radius-control">
+                        <select id="radius-select">
+                            <option value="2000">2 km</option>
+                            <option value="5000" selected>5 km</option>
+                            <option value="10000">10 km</option>
+                            <option value="20000">20 km</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="autocomplete-results" class="autocomplete-panel hidden"></div>
+            </div>
+        </header>
+
+        <div class="glass-panel music-player">
+            <i class="fas fa-music"></i>
+            <div class="audio-bars">
+                <div class="bar"></div>
+                <div class="bar" style="animation-delay: 0.1s"></div>
+                <div class="bar" style="animation-delay: 0.2s"></div>
+            </div>
+            <span id="track-name" style="font-size: 0.75rem; font-weight: 600;">Lofi Study</span>
+            <audio id="bg-audio" loop>
+                <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+
+        <aside id="sidebar" class="glass-panel sidebar-collapsed">
+            <button class="toggle-sidebar"
+                style="position: absolute; right: -40px; top: 20px; width: 40px; height: 40px; border-radius: 10px; background: var(--surface); border: 1px solid rgba(255,255,255,0.1); color: var(--primary); cursor: pointer;"
+                onclick="toggleSidebar()">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="sidebar-content">
+                <div id="welcome-message">
+                    <span class="premium-badge">VERSION 2.1</span>
+                    <div class="sidebar-welcome-img"
+                        style="margin: 20px 0; border-radius: 12px; overflow: hidden; height: 150px;">
+                        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=600"
+                            alt="Cafe Welcome" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <h2 style="font-family: 'Outfit'; margin: 15px 0;">Find Your Spot.</h2>
+                    <p style="color: var(--text-dim);">Discover cafes curated for your mood. Click on markers for
+                        AI-driven insights.</p>
+                </div>
+                <div id="cafe-details" class="hidden">
+                    <button class="back-btn"
+                        style="background:transparent; border:none; color: var(--primary); cursor:pointer; margin-bottom: 20px;"
+                        onclick="showWelcome()">
+                        <i class="fas fa-arrow-left"></i> Back to Explore
+                    </button>
+                    <div id="detail-card"></div>
+                </div>
+            </div>
+        </aside>
+
+        <div class="map-controls">
+            <button class="control-btn glass-panel stealth-btn" onclick="toggleStealthMode()" title="Stealth Mode">
+                <i class="fas fa-ghost"></i>
+            </button>
+            <button class="control-btn glass-panel study-mode-btn" onclick="toggleStudyMode()" title="Study Mode">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="control-btn glass-panel" onclick="locateMe()" title="Find Me">
+                <i class="fas fa-location-crosshairs"></i>
+            </button>
+        </div>
+
+        <div id="study-overlay"></div>
+        <div id="map"></div>
+
+        <div id="search-area-action" class="hidden">
+            <button onclick="MapApp.searchCurrentArea()" class="btn-primary">
+                <i class="fas fa-sync-alt"></i> Search this area
+            </button>
+        </div>
+
+        <div id="loader" class="hidden">
+            <div class="spinner"></div>
+            <p style="margin-top: 20px;">Brewing your results...</p>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>
