@@ -1,4 +1,5 @@
-# ☕ CafeVibe — Find Your Perfect Vibe
+# ☕ Cafe Finder — Find Your Perfect Vibe
+
 
 CafeVibe is a premium, intelligent cafe discovery platform designed to help users discover cafes based on mood, location, and vibe.
 
